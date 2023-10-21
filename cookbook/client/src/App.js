@@ -1,11 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+function renderRecipes(name) {
+  return <h1>Naše {name} recepty</h1>
+}
+
+const recipes = {
+  beef: "Hovězí",
+  chicken: "Kuřecí",
+  healthy: "Zdravé"
+}
+
+
 
 function App() {
   return (
     <div className="App">
-      <h1>Marek Jagoš</h1>
-      <p></p>
+      {renderRecipes (recipes.chicken)}
     </div>
   );
 }
