@@ -10,11 +10,26 @@
   font-weight: bold;
 }
 
-body {
+/****************************** CSS RESET ******************************/
+
+* {
   margin: 0;
-  font-family: 'Poppins', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #e2e2e9;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/****************************** Global Fonts ******************************/
+
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

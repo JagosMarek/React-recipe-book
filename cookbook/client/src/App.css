@@ -1,8 +1,9 @@
 .App {
   font-family: Poppins;
-  color: aqua;
-}
-
-.App h1 {
-  color: blue;
+  min-height: 100vh;
+  padding-top: 20px;
+  width: 70%;
+  margin: auto;
+  max-width: 1350px;
+  color: #302E4D;
 }

@@ -1,21 +1,16 @@
 import "./App.css";
-
-function renderRecipes(name) {
-  return <h1>Naše {name} recepty</h1>
-}
-
-const recipes = {
-  beef: "Hovězí",
-  chicken: "Kuřecí",
-  healthy: "Zdravé"
-}
-
-
+import RecipeInfo from "./components/RecipeInfo";
+import RecipeList from "./components/RecipeList";
+import recipeList from "./MockData"; // Import Mockup dat -> zde jsou recepty.
+import MainFooter from "./components/RecipeFooter";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-      {renderRecipes (recipes.chicken)}
+      {RecipeInfo()}
+      <RecipeList recipeList={recipeList}/>
+      {MainFooter()}
     </div>
   );
 }

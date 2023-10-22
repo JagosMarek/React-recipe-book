@@ -1,0 +1,11 @@
+/****************************** RecipeFooter CSS Component ******************************/
+
+.footer {
+    background-color: #bd9d3d;
+    text-align: center;
+    padding-top: 15px;
+    height: 50px;
+    width: 100%;
+    color: white;
+    font-size: 1.1rem;
+}
