@@ -8,8 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
-      {recipeInfo()}
-      <RecipeList recipeList={recipeList}/>
+      {recipeInfo()} {/* Zde volám funkci -> pokud mám {} závorky volám funkci */}
+      <RecipeList recipeList={recipeList}/> {/* Zde volám komponentu -> pokud mám <> závorky volám komponentu */}
       {mainFooter()}
     </div>
   );
