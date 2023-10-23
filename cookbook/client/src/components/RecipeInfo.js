@@ -4,11 +4,11 @@ import bagImage from "../images/bag.png" // Import obrázku
 
 // Komponenta slouží k vykreslování nadpisu na stránce
 
-function RecipeInfo() {
+function recipeInfo() {
     return <h1 className={styles.recipeHeader}>
         Recepty z roztrhlého pytle
         <img src={bagImage} alt="Obrázek pytle" />
         </h1> 
 }
 
-export default RecipeInfo; // Export funkce
+export default recipeInfo; // Export funkce

@@ -3,10 +3,10 @@ import styles from "../css/recipeFooter.module.css";  // Import komponenty CSS s
 
 // Komponenta slouží k vykreslování patičky na stránce
 
-function MainFooter() {
+function mainFooter() {
     return <div className={styles.footer}>
         @Marek Jagoš, 2023
     </div>
 }
 
-export default MainFooter; // Export funkce
+export default mainFooter; // Export funkce
