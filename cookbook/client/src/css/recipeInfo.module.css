@@ -6,6 +6,15 @@
     font-weight: 600;
 }
 
+.headerImg {
+    transition: transform 0.8s;
+    margin-left: 20px;
+}
+
+.headerImg:hover {
+    transform: rotate(360deg);
+}
+
 /****************************** list of recipes header CSS Component ******************************/
 
 .listOfRecipesHeader {

@@ -7,7 +7,7 @@ import bagImage from "../images/bag.png" // Import obrázku
 function recipeInfo() {
     return <h1 className={styles.recipeHeader}>
         Recepty z roztrhlého pytle
-        <img src={bagImage} alt="Obrázek pytle" />
+        <img className={styles.headerImg} src={bagImage} alt="Obrázek pytle" />
         </h1> 
 }
 
