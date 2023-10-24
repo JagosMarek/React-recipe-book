@@ -1,29 +1,29 @@
 import React, { useState } from "react"; // Import Reactu abych ho mohl používat v komponentě
-import RecipeGridList from "./RecipeGridList";
-import RecipeTableList from "./RecipeTableList";
+import RecipeGridList from "./RecipeGridList"; // Import Grid pro vykreslování seznamu jako karty
+import RecipeTableList from "./RecipeTableList"; // Import Table pro vykreslování seznamu jako tabulky
 
-import Icon from "@mdi/react";
-import { mdiTable, mdiViewGridOutline } from "@mdi/js";
+import Icon from "@mdi/react"; // Import ikon pro table a grid
+import { mdiTable, mdiViewGridOutline } from "@mdi/js"; // ikony grid a table
+import styles from "../css/recipeInfo.module.css"; // Import komponenty CSS styl
 
 import Navbar from "react-bootstrap/Navbar"; // Import komponenty Navbar z bootstrap -> ten slouží pro vkládání navigačních prvků na stránku
 import Button from "react-bootstrap/Button"; // Import komponenty Button z bootstrap
 
-// Komponenta slouží k zobrazení seznamu receptů. Do komponenty jsou přidány Col, Row a Container, protože Card má defaultně
-// nastevené řazení do sloupce. Zde Col dává jednomu receptu šířku 4 z 12 takže na řádek se vlezou 3.
+// Komponenta slouží k zobrazení seznamu receptů. V závislosti na proměnné isGrid jestli je true nebo false vykreslí budˇ grid nebo table.
 
 function RecipeList(props) {
-  const [viewType, setViewType] = useState("grid");
-  const isGrid = viewType === "grid"; // isGrid je pomocná proměnná, kterou budu dále používat pro řízení vzhledu
+  const [viewType, setViewType] = useState("grid"); // výchozí stav zobrazení receptů -> jako karty
+  const isGrid = viewType === "grid"; // isGrid je proměnná je true pokud viewType = grid jinak je false.
 
   return (
     <div>
       <Navbar>
-        <div className="container-fluid">
-          <Navbar.Brand>Seznam receptů</Navbar.Brand>
-          <Button
+        <div className="container-fluid"> 
+          <Navbar.Brand className={styles.listOfRecipesHeader}>Seznam receptů</Navbar.Brand>
+          <Button className={styles.listOfRecipesButton}
             variant="outline-primary"
             onClick={() =>
-              setViewType((currentState) => {
+              setViewType((currentState) => { // funkce nastavuje viewType na opačnou hodnotu podle toho co je aktuálně nastaveno
                 if (currentState === "grid") return "table";
                 else return "grid";
               })
@@ -34,7 +34,7 @@ function RecipeList(props) {
           </Button>
         </div>
       </Navbar>
-      {isGrid ? (
+      {isGrid ? ( // klasika pokud je grid true tak vykreslím mřížky jinak table
         <RecipeGridList recipeList={props.recipeList} />
       ) : (
         <RecipeTableList recipeList={props.recipeList} />

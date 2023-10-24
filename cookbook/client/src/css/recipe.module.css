@@ -9,7 +9,7 @@
 
 .recipeTitle {
     font-size: 1.6rem;
-    color: #bd9d3d;
+    color: #bd9d3d !important;
 }
 
 .recipeBody {
@@ -19,19 +19,19 @@
 
 .recipeText {
     text-align: justify;
-    color: #302E4D;
+    color: #302E4D !important;
 }
 
 .recipeButton {
-    background-color: #bd9d3d;
-    border: 1px solid #bd9d3d;
+    background-color: #bd9d3d !important;
+    border: 1px solid #bd9d3d !important;
     transition: 0.3s;
 }
 
 .recipeButton:hover {
-    background-color: white;
-    color: #bd9d3d;
-    border: 1px solid #bd9d3d;
+    background-color: white !important;
+    color: #bd9d3d !important;
+    border: 1px solid #bd9d3d !important;
 }
 
 .recipe:hover {

@@ -5,3 +5,26 @@
     color: #bd9d3d;
     font-weight: 600;
 }
+
+/****************************** list of recipes header CSS Component ******************************/
+
+.listOfRecipesHeader {
+    font-size: 2rem !important;
+    color: #bd9d3d !important;
+    font-weight: 600 !important;
+}
+
+/****************************** list of recipes button CSS Component ******************************/
+
+.listOfRecipesButton {
+    background-color: #bd9d3d !important;
+    border: 1px solid #bd9d3d !important;
+    transition: 0.3s;
+    color: white !important;
+}
+
+.listOfRecipesButton:hover {
+    background-color: white !important;
+    color: #bd9d3d !important;
+    border: 1px solid #bd9d3d !important;
+}

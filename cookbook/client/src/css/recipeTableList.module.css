@@ -1,0 +1,20 @@
+/****************************** RecipeTableList CSS Component ******************************/
+
+.tableDes {
+    font-size: 1.6rem;
+    color: #bd9d3d !important;
+}
+
+.recipeTitle {
+    font-size: 1.4rem;
+    color: #bd9d3d !important;
+}
+
+.recipeText {
+    text-align: justify;
+    color: #302E4D !important;
+}
+
+.table {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

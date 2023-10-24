@@ -1,5 +1,7 @@
-import React from "react";
+import React from "react"; // Import Reactu abych ho mohl používat v komponentě
 import Recipe from "./Recipe"; // Import komponenty Recipe
+
+// Komponenta vrací seznam jako mřížku
 
 function RecipeGridList(props) {
   return (
