@@ -12,9 +12,13 @@
     color: #bd9d3d !important;
 }
 
-.recipeBody {
+.recipeBodySmall {
     overflow: hidden;
     max-height: 200px;
+}
+
+.recipeBodyLarge {
+    max-height: fit-content;
 }
 
 .recipeText {
@@ -35,9 +39,7 @@
 }
 
 .recipe:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     filter: brightness(1.1);
 }
-
-

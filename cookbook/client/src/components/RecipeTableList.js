@@ -1,10 +1,8 @@
 import React from "react"; // Import Reactu abych ho mohl používat v komponentě
-import Table from "react-bootstrap/Table"; 
-import styles from "../css/recipeTableList.module.css";
-import Icon from '@mdi/react';
-import { mdiSilverwareVariant } from '@mdi/js';
-
-
+import Table from "react-bootstrap/Table"; // Import komponenty Table z bootstrap
+import styles from "../css/recipeTableList.module.css"; // Import komponenty CSS styl
+import Icon from '@mdi/react'; // Import ikon 
+import { mdiSilverwareVariant } from '@mdi/js'; // Import ikon
 
 // komponenta vrací seznam jako tabulku
 

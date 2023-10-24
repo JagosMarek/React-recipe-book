@@ -15,14 +15,14 @@ import { mdiTable, mdiViewGridOutline, mdiMagnify } from "@mdi/js"; // ikona s l
 function RecipeList(props) {
   const [viewType, setViewType] = useState("grid"); // výchozí stav zobrazení receptů -> jako karty
   const isGrid = viewType === "grid"; // isGrid je proměnná je true pokud viewType = grid jinak je false.
-  const [searchBy, setSearchBy] = useState("");
+  const [searchBy, setSearchBy] = useState(""); // výchozí hodnota useState je prázdný řetězec
+  const [cardSize, setCardSize] = useState("small"); // výchozí hodnota je small
 
   const filteredRecipeList = useMemo(() => { // Vytvoří nový seznam receptů pomocí useMemo funkce. Výsledek je uložen do proměnné.
     return props.recipeList.filter((item) => {
       return (
-        item.name
-          .toLocaleLowerCase()
-          .includes(searchBy.toLocaleLowerCase()) // Pokud se searchBy změní tak useMemo vytvoří nový seznam.
+        item.name.toLowerCase().includes(searchBy.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchBy.toLowerCase()) // Pokud se searchBy změní tak useMemo vytvoří nový seznam.
       );
     });
   }, [searchBy, props.recipeList]); // Zde se funkce useMemo přepočítá znova pokud změnít text v searchBy nebo pokud změnít pole (např. bych odstranil recept, přidal)
@@ -36,11 +36,17 @@ function RecipeList(props) {
     if (!event.target.value) setSearchBy(""); // pokud ve vstupu nebude hodnota (uživatel stiskne x), bude zrušeno vyhledávání
   }
 
+  function handleToggleCardSize() {
+    setCardSize(cardSize === "small" ? "large" : "small"); // mění velikost karet
+  }
+
   return (
     <div>
       <Navbar>
         <div className="container-fluid">
-          <Navbar.Brand className={styles.listOfRecipesHeader}>Seznam receptů</Navbar.Brand>
+          <Navbar.Brand className={styles.listOfRecipesHeader}>
+            Seznam receptů
+          </Navbar.Brand>
           <div>
             <Form className="d-flex" onSubmit={handleSearch}>
               <Form.Control
@@ -59,24 +65,33 @@ function RecipeList(props) {
                 <Icon size={1} path={mdiMagnify} />
               </Button>
               <Button
-                className={styles.listOfRecipesButton}
-                variant="outline-primary"
-                onClick={() =>
-                  setViewType((currentState) => { // funkce nastavuje viewType na opačnou hodnotu podle toho co je aktuálně nastaveno
-                    if (currentState === "grid") return "table";
-                    else return "grid";
-                  })
-                }
-              >
-                <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
-                {isGrid ? "Tabulka" : "Grid"}
-              </Button>
+                  className={`mx-2 ${styles.listOfRecipesButton}`}
+                  variant="outline-primary"
+                  onClick={() =>
+                    setViewType((currentState) => { // funkce nastavuje viewType na opačnou hodnotu podle toho co je aktuálně nastaveno
+                      if (currentState === "grid") return "table";
+                      else return "grid";
+                    })
+                  }
+                >
+                  <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
+                  {isGrid ? "Tabulka" : "Grid"}
+                </Button>
+                {isGrid && (
+                  <Button
+                    className={`mx-2 ${styles.listOfRecipesButton}`}
+                    variant="outline-secondary"
+                    onClick={handleToggleCardSize}
+                  >
+                    {cardSize === "large" ? "Malé karty" : "Velké karty"}
+                  </Button>
+                )}
             </Form>
           </div>
         </div>
       </Navbar>
       {isGrid ? ( // klasika pokud je grid true tak vykreslím mřížky jinak table
-        <RecipeGridList recipeList={filteredRecipeList} />
+        <RecipeGridList recipeList={filteredRecipeList} cardSize={cardSize} />
       ) : (
         <RecipeTableList recipeList={filteredRecipeList} />
       )}

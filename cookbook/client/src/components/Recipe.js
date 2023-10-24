@@ -4,18 +4,19 @@ import Button from "react-bootstrap/Button"; // Import komponenty Button z boots
 import styles from "../css/recipe.module.css"; // Import komponenty CSS styl
 
 // Komponenta Recipe slouží k vypisování jednotlivých receptů. Používá styly Card z Bootstrap a vlastní CSS styly.
+// Podle cardSize large aplikuje CSS styl
 
 function Recipe(props) {
-    return (
-      <Card className={styles.recipe}>
-        <Card.Img variant="top" src={props.recipe.imgUri} alt={props.recipe.name} />
-        <Card.Body className={styles.recipeBody}>
-          <Card.Title className={styles.recipeTitle}>{props.recipe.name}</Card.Title>
-          <Card.Text className={styles.recipeText}>{props.recipe.description}</Card.Text>    
-        </Card.Body>
-        <Button className={styles.recipeButton} variant="primary">Celý recept</Button>
-      </Card>
-    );
-  }
+  return (
+    <Card className={styles.recipe}>
+      <Card.Img variant="top" src={props.recipe.imgUri} alt={props.recipe.name} />
+      <Card.Body className={styles.recipeBody + (props.cardSize === "large" ? " " + styles.recipeBodyLarge : " " + styles.recipeBodySmall)}> 
+        <Card.Title className={styles.recipeTitle}>{props.recipe.name}</Card.Title>
+        <Card.Text className={styles.recipeText}>{props.recipe.description}</Card.Text>    
+      </Card.Body>
+      <Button className={styles.recipeButton} variant="primary">Celý recept</Button>
+    </Card>
+  );
+}
 
 export default Recipe;
