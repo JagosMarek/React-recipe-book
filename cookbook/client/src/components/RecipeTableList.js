@@ -19,7 +19,7 @@ function RecipeTableList(props) {
         {props.recipeList.map((recipe) => {
           return (
             <tr key={recipe.id}>
-              <td className={styles.recipeTitle}><Icon path={mdiSilverwareVariant} size={1} /> {recipe.name}</td>
+              <td className={styles.recipeTitle}><Icon className={styles.icon} path={mdiSilverwareVariant} size={1} /> {recipe.name}</td>
               <td className={styles.recipeText}>{recipe.description}</td>
             </tr>
           );

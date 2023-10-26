@@ -2,19 +2,23 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import recipeInfo from "./components/RecipeInfo";
 import RecipeList from "./components/RecipeList";
-import recipeList from "./MockData"; // Import Mockup dat -> zde jsou recepty.
 import mainFooter from "./components/RecipeFooter";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import styles from "./css/recipeInfo.module.css";
+import Icon from "@mdi/react";
+import { mdiLoading } from "@mdi/js";
 
 function App() {
   const [recipeListLoadCall, setRecipeListLoadCall] = useState({
     state: "pending",
   });
 
+  const [ingredienceListLoadCall, setingredienceListLoadCall] = useState({
+    state: "pending",
+  });
+
   useEffect(() => {
-    fetch(`http://localhost:3000/recipe/get?id=${"b6c21cf8807dd356"}`, { // -> Našlo to salát z naklíčené čočky stav success
+    fetch(`http://localhost:3000/recipe/list`, { 
       method: "GET",
     }).then(async (response) => {
       const responseJson = await response.json();
@@ -26,15 +30,46 @@ function App() {
     });
   }, []); // prázdné pole podmínek znamená, že kód se spustí pouze jednou
 
-  console.log(recipeListLoadCall)
+  useEffect(() => {
+    fetch(`http://localhost:3000/ingredient/list`, { 
+      method: "GET",
+    }).then(async (response) => {
+      const responseJson = await response.json();
+      if (response.status >= 400) {
+        setingredienceListLoadCall({ state: "error", error: responseJson });
+      } else {
+        setingredienceListLoadCall({ state: "success", data: responseJson });
+      }
+    });
+  }, []); 
 
-  return (
-    <div className="App">
-      {recipeInfo()} {/* Zde volám funkci -> pokud mám {} závorky volám funkci */}
-      <RecipeList recipeList={recipeList}/> {/* Zde volám komponentu -> pokud mám <> závorky volám komponentu */}
-      {mainFooter()}
-    </div>
-  );
+  function getChild() {
+    if (recipeListLoadCall.state === "success" && ingredienceListLoadCall.state === "success") {
+      return (
+        <>
+          {recipeInfo()}
+          <RecipeList recipeList={recipeListLoadCall.data} ingredientList = {ingredienceListLoadCall.data}/>
+          {mainFooter()}
+        </>
+      );
+    } else if (recipeListLoadCall.state === "error" || ingredienceListLoadCall.state === "error") {
+        return (
+          <div className={styles.error}>
+            <div>Nepodařilo se načíst recepty nebo ingredience</div>
+            <br />
+            <pre>{JSON.stringify(recipeListLoadCall.error, null, 2)}</pre>
+          </div>
+        );
+    } else {
+        return (
+          <div className={styles.loading}>
+            <Icon size={2} path={mdiLoading} spin={true} />
+          </div>
+        );
+    }
+  }
+
+    return <div className="App">{getChild()}</div>;
 }
 
 export default App;

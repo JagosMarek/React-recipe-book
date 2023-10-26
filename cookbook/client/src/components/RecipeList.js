@@ -62,7 +62,7 @@ function RecipeList(props) {
                 variant="outline-success"
                 type="submit"
               >
-                <Icon size={1} path={mdiMagnify} />
+                <Icon className={styles.iconGlass} size={1} path={mdiMagnify} />
               </Button>
               <Button
                   className={`mx-2 ${styles.listOfRecipesButton}`}
@@ -74,7 +74,7 @@ function RecipeList(props) {
                     })
                   }
                 >
-                  <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
+                  <Icon className={styles.icon} size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
                   {isGrid ? "Tabulka" : "Grid"}
                 </Button>
                 {isGrid && (
@@ -91,7 +91,7 @@ function RecipeList(props) {
         </div>
       </Navbar>
       {isGrid ? ( // klasika pokud je grid true tak vykreslím mřížky jinak table
-        <RecipeGridList recipeList={filteredRecipeList} cardSize={cardSize} />
+        <RecipeGridList recipeList={filteredRecipeList} ingredientList={props.ingredientList} cardSize={cardSize} />
       ) : (
         <RecipeTableList recipeList={filteredRecipeList} />
       )}

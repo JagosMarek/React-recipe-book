@@ -37,3 +37,32 @@
     color: #bd9d3d !important;
     border: 1px solid #bd9d3d !important;
 }
+
+/****************************** loading and error message button CSS Component ******************************/
+
+.loading {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .error {
+    background-color: lightpink;
+    padding: 32px;
+  }
+
+  /****************************** icons on main page CSS Component ******************************/
+
+  .icon {
+    background-color: #bd9d3d;
+  }
+
+  .iconGlass:hover {
+    background-color: #198754;
+  }
+
+  .icon:hover {
+    background-color: white;
+  }

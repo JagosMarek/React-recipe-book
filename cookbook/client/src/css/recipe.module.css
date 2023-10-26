@@ -21,6 +21,13 @@
     max-height: fit-content;
 }
 
+.recipeDescription {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 200px;
+    white-space: nowrap;
+}
+
 .recipeText {
     text-align: justify;
     color: #302E4D !important;
