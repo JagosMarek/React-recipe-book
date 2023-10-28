@@ -10,13 +10,16 @@ import styles from "../css/recipeInfo.module.css"; // Import komponenty CSS styl
 import Icon from "@mdi/react"; // Import ikon pro table a grid
 import { mdiTable, mdiViewGridOutline, mdiMagnify } from "@mdi/js"; // ikona s lupou pro tlačítko vyhledávání + ikony grid a table
 
+import { RECIPES_VIEW } from "./constants/RecipesView";
+import { CARD_SIZE } from "./constants/CardSize";
+
 // Komponenta slouží k zobrazení seznamu receptů. V závislosti na proměnné isGrid jestli je true nebo false vykreslí bud grid nebo table.
 
 function RecipeList(props) {
-  const [viewType, setViewType] = useState("grid"); // výchozí stav zobrazení receptů -> jako karty
-  const isGrid = viewType === "grid"; // isGrid je proměnná je true pokud viewType = grid jinak je false.
+  const [viewType, setViewType] = useState(RECIPES_VIEW.GRID); // výchozí stav zobrazení receptů -> jako karty
+  const isGrid = viewType === RECIPES_VIEW.GRID; // isGrid je proměnná je true pokud viewType = grid jinak je false.
   const [searchBy, setSearchBy] = useState(""); // výchozí hodnota useState je prázdný řetězec
-  const [cardSize, setCardSize] = useState("small"); // výchozí hodnota je small
+  const [cardSize, setCardSize] = useState(CARD_SIZE.SMALL); // výchozí hodnota je small
 
   const filteredRecipeList = useMemo(() => { // Vytvoří nový seznam receptů pomocí useMemo funkce. Výsledek je uložen do proměnné.
     return props.recipeList.filter((item) => {
@@ -37,7 +40,7 @@ function RecipeList(props) {
   }
 
   function handleToggleCardSize() {
-    setCardSize(cardSize === "small" ? "large" : "small"); // mění velikost karet
+    setCardSize(cardSize === CARD_SIZE.SMALL ? CARD_SIZE.LARGE : CARD_SIZE.SMALL); // mění velikost karet
   }
 
   return (
@@ -69,13 +72,13 @@ function RecipeList(props) {
                   variant="outline-primary"
                   onClick={() =>
                     setViewType((currentState) => { // funkce nastavuje viewType na opačnou hodnotu podle toho co je aktuálně nastaveno
-                      if (currentState === "grid") return "table";
-                      else return "grid";
+                      if (currentState === RECIPES_VIEW.GRID) return RECIPES_VIEW.TABLE;
+                      else return RECIPES_VIEW.GRID;
                     })
                   }
                 >
                   <Icon className={styles.icon} size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
-                  {isGrid ? "Tabulka" : "Grid"}
+                  {isGrid ? RECIPES_VIEW.TABLE : RECIPES_VIEW.GRID}
                 </Button>
                 {isGrid && (
                   <Button
@@ -83,7 +86,7 @@ function RecipeList(props) {
                     variant="outline-secondary"
                     onClick={handleToggleCardSize}
                   >
-                    {cardSize === "large" ? "Malé karty" : "Velké karty"}
+                    {cardSize === CARD_SIZE.LARGE ? "Malé karty" : "Velké karty"}
                   </Button>
                 )}
             </Form>

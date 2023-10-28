@@ -7,25 +7,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from "./css/recipeInfo.module.css";
 import Icon from "@mdi/react";
 import { mdiLoading } from "@mdi/js";
+import { STATUS } from "./components/constants/RequestStates"; // Import konstant stavu
 
 function App() {
-  const [recipeListLoadCall, setRecipeListLoadCall] = useState({
-    state: "pending",
+  const [recipeListLoadCall, setRecipeListLoadCall] = useState({ // Výchozí stav nastaven na pending 
+    state: STATUS.PENDING, 
   });
 
   const [ingredienceListLoadCall, setingredienceListLoadCall] = useState({
-    state: "pending",
+    state: STATUS.PENDING, 
   });
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/recipe/list`, { 
+  useEffect(() => { // Provede asynchronní požadavek na server a aktualizuje stav recipeListLoadCall
+    fetch(`http://localhost:3000/recipe/list`, { // Získám seznam receptů z API recipe/list
       method: "GET",
-    }).then(async (response) => {
-      const responseJson = await response.json();
-      if (response.status >= 400) {
-        setRecipeListLoadCall({ state: "error", error: responseJson });
+    }).then(async (response) => { // Tato metoda obsahuje zpracování odpovědi ze serveru
+      const responseJson = await response.json(); // Transformace odpovědi na response.json
+      if (response.status >= 400) { // Potom podle kódu se nastaví stav
+        setRecipeListLoadCall({ state: STATUS.ERROR, error: responseJson }); 
       } else {
-        setRecipeListLoadCall({ state: "success", data: responseJson });
+        setRecipeListLoadCall({ state: STATUS.SUCCESS, data: responseJson }); 
       }
     });
   }, []); // prázdné pole podmínek znamená, že kód se spustí pouze jednou
@@ -36,15 +37,15 @@ function App() {
     }).then(async (response) => {
       const responseJson = await response.json();
       if (response.status >= 400) {
-        setingredienceListLoadCall({ state: "error", error: responseJson });
+        setingredienceListLoadCall({ state: STATUS.ERROR, error: responseJson }); 
       } else {
-        setingredienceListLoadCall({ state: "success", data: responseJson });
+        setingredienceListLoadCall({ state: STATUS.SUCCESS, data: responseJson }); 
       }
     });
   }, []); 
 
-  function getChild() {
-    if (recipeListLoadCall.state === "success" && ingredienceListLoadCall.state === "success") {
+  function getChild() { // Na zálkadě stavu recipeListLoadCall a ingredienceListLoadCall vrátí obsah -> recepty, error nebo panding
+    if (recipeListLoadCall.state === STATUS.SUCCESS && ingredienceListLoadCall.state === STATUS.SUCCESS) { 
       return (
         <>
           {recipeInfo()}
@@ -52,24 +53,24 @@ function App() {
           {mainFooter()}
         </>
       );
-    } else if (recipeListLoadCall.state === "error" || ingredienceListLoadCall.state === "error") {
-        return (
-          <div className={styles.error}>
-            <div>Nepodařilo se načíst recepty nebo ingredience</div>
-            <br />
-            <pre>{JSON.stringify(recipeListLoadCall.error, null, 2)}</pre>
-          </div>
-        );
+    } else if (recipeListLoadCall.state === STATUS.ERROR || ingredienceListLoadCall.state === STATUS.ERROR) { 
+      return (
+        <div className={styles.error}>
+          <div>Nepodařilo se načíst recepty nebo ingredience</div>
+          <br />
+          <pre>{JSON.stringify(recipeListLoadCall.error, null, 2)}</pre>
+        </div>
+      );
     } else {
-        return (
-          <div className={styles.loading}>
-            <Icon size={2} path={mdiLoading} spin={true} />
-          </div>
-        );
+      return (
+        <div className={styles.loading}>
+          <Icon size={2} path={mdiLoading} spin={true} />
+        </div>
+      );
     }
   }
 
-    return <div className="App">{getChild()}</div>;
+  return <div className="App">{getChild()}</div>;
 }
 
 export default App;

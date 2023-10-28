@@ -1,5 +1,6 @@
 import React from "react"; // Import Reactu abych ho mohl používat v komponentě
 import Recipe from "./Recipe"; // Import Recipe komponenty pro vykreslení
+import { CARD_SIZE } from "./constants/CardSize";
 
 // Komponenta slouží k vykreslení receptů jako mřížka (karty)
 // Pokud je large tak jsou dvě jinak tři karty vedle sebe
@@ -10,7 +11,7 @@ function RecipeGridList(props) {
   return (
     <div className="row">
       {recipeList.map((recipe) => (
-        <div key={recipe.id} className={`col-md-${cardSize === "large" ? "6" : "4"}`}> 
+        <div key={recipe.id} className={`col-md-${cardSize === CARD_SIZE.LARGE ? "6" : "4"}`}> 
           <Recipe recipe={recipe} cardSize={cardSize} ingredientList={ingredientList} />
         </div>
       ))}
