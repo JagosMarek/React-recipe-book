@@ -60,12 +60,13 @@ function RecipeList(props) {
                 aria-label="Vyhledat"
                 onChange={handleSearchDelete}
               />
-              <Button
+              <Button 
+                className={styles.glassButton}
                 style={{ marginRight: "8px" }}
                 variant="outline-success"
                 type="submit"
               >
-                <Icon className={styles.iconGlass} size={1} path={mdiMagnify} />
+                <Icon className={styles.icon} size={1} path={mdiMagnify} />
               </Button>
               <Button
                   className={`mx-2 ${styles.listOfRecipesButton}`}
