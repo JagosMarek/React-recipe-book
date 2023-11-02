@@ -77,15 +77,35 @@
   flex-direction: row;
 }
 
+.formControl {
+  max-width: 150px;
+}
 
-@media (max-width: 970px) {
+@media (max-width: 1150px) {
+  .listOfRecipesHeader {
+    font-size: 1.5rem !important;
+  }
+}
 
+@media (max-width: 750px) {
+
+  .recipeHeader {
+    font-size: 1.8rem;
+  }
+
+  .headerImg {
+    width: 50px;
+  }
+  
   .form {
-    flex-direction: column;
+    justify-content: center;
+  }
+
+  .formControl {
+    max-width: 100%;
   }
 
   .divForm {
-    display: flex;
-    margin-bottom: 10px;
+    margin-top: 10px;
   }
 }

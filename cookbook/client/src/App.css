@@ -7,3 +7,9 @@
   max-width: 1350px;
   color: #302E4D;
 }
+
+@media (max-width: 1050px) {
+  .App {
+    width: 90%;
+  }
+}

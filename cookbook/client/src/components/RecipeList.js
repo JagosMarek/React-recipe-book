@@ -59,7 +59,7 @@ function RecipeList(props) {
               <div className={styles.divForm}>
               <Form.Control
                 id={"searchInput"}
-                style={{ maxWidth: "150px" }}
+                className={styles.formControl}
                 type="search"
                 placeholder="Vyhledat"
                 aria-label="Vyhledat"
