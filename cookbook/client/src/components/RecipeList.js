@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react"; // Import Reactu abych ho mohl používat v komponentě
 import RecipeGridList from "./RecipeGridList"; // Import Grid pro vykreslování seznamu jako karty
 import RecipeTableList from "./RecipeTableList"; // Import Table pro vykreslování seznamu jako tabulky
+import { useMediaQuery } from 'react-responsive'; // Import funkce z knihovny react-esponsive pro zjištění velikosti obrazovky
 
 import Navbar from "react-bootstrap/Navbar"; // Import komponenty Navbar z bootstrap -> ten slouží pro vkládání navigačních prvků na stránku
 import Button from "react-bootstrap/Button"; // Import komponenty Button z bootstrap
@@ -10,16 +11,17 @@ import styles from "../css/recipeInfo.module.css"; // Import komponenty CSS styl
 import Icon from "@mdi/react"; // Import ikon pro table a grid
 import { mdiTable, mdiViewGridOutline, mdiMagnify } from "@mdi/js"; // ikona s lupou pro tlačítko vyhledávání + ikony grid a table
 
-import { RECIPES_VIEW } from "./constants/RecipesView";
-import { CARD_SIZE } from "./constants/CardSize";
+import { RECIPES_VIEW } from "./constants/RecipesView"; // Import konstanty
+import { CARD_SIZE } from "./constants/CardSize"; // Import konstanty
 
 // Komponenta slouží k zobrazení seznamu receptů. V závislosti na proměnné isGrid jestli je true nebo false vykreslí bud grid nebo table.
 
 function RecipeList(props) {
   const [viewType, setViewType] = useState(RECIPES_VIEW.GRID); // výchozí stav zobrazení receptů -> jako karty
-  const isGrid = viewType === RECIPES_VIEW.GRID; // isGrid je proměnná je true pokud viewType = grid jinak je false.
   const [searchBy, setSearchBy] = useState(""); // výchozí hodnota useState je prázdný řetězec
   const [cardSize, setCardSize] = useState(CARD_SIZE.SMALL); // výchozí hodnota je small
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' }); // proměnná bude true pokud je velikost obrazovky 768px a nižší.
+  const isGrid = isTabletOrMobile ? true : viewType === RECIPES_VIEW.GRID; // pokud je isTableOrMobile true tak isGrid je taky true a zobrazí se mřížka
 
   const filteredRecipeList = useMemo(() => { // Vytvoří nový seznam receptů pomocí useMemo funkce. Výsledek je uložen do proměnné.
     return props.recipeList.filter((item) => {
@@ -45,13 +47,16 @@ function RecipeList(props) {
 
   return (
     <div>
-      <Navbar>
+      <Navbar expand="lg">
         <div className="container-fluid">
           <Navbar.Brand className={styles.listOfRecipesHeader}>
             Seznam receptů
           </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end" bg="dark">
           <div>
-            <Form className="d-flex" onSubmit={handleSearch}>
+            <Form className={styles.form} onSubmit={handleSearch}>
+              <div className={styles.divForm}>
               <Form.Control
                 id={"searchInput"}
                 style={{ maxWidth: "150px" }}
@@ -68,6 +73,8 @@ function RecipeList(props) {
               >
                 <Icon className={styles.icon} size={1} path={mdiMagnify} />
               </Button>
+              </div>
+              <div className={`${styles.divForm} d-none d-md-block`}>
               <Button
                   className={`mx-2 ${styles.listOfRecipesButton}`}
                   variant="outline-primary"
@@ -81,6 +88,8 @@ function RecipeList(props) {
                   <Icon className={styles.icon} size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
                   {isGrid ? RECIPES_VIEW.TABLE : RECIPES_VIEW.GRID}
                 </Button>
+                </div>
+                <div className={`${styles.divForm} d-none d-md-block`}>
                 {isGrid && (
                   <Button
                     className={`mx-2 ${styles.listOfRecipesButton}`}
@@ -90,8 +99,10 @@ function RecipeList(props) {
                     {cardSize === CARD_SIZE.LARGE ? "Malé karty" : "Velké karty"}
                   </Button>
                 )}
+                </div>
             </Form>
           </div>
+          </Navbar.Collapse>
         </div>
       </Navbar>
       {isGrid ? ( // klasika pokud je grid true tak vykreslím mřížky jinak table

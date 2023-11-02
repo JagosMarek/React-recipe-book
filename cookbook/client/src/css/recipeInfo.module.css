@@ -64,3 +64,28 @@
     background-color: lightpink;
     padding: 32px;
   }  
+
+/****************************** div CSS Component ******************************/
+
+.form {
+  display: flex;
+  flex-direction: row;
+}
+
+.divForm {
+  display: flex;
+  flex-direction: row;
+}
+
+
+@media (max-width: 970px) {
+
+  .form {
+    flex-direction: column;
+  }
+
+  .divForm {
+    display: flex;
+    margin-bottom: 10px;
+  }
+}
