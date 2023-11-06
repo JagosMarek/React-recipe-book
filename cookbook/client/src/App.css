@@ -2,14 +2,8 @@
   font-family: Poppins;
   min-height: 100vh;
   padding-top: 20px;
-  width: 70%;
+  width: 90%;
   margin: auto;
   max-width: 1350px;
   color: #302E4D;
-}
-
-@media (max-width: 1050px) {
-  .App {
-    width: 90%;
-  }
 }

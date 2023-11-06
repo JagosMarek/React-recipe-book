@@ -21,7 +21,7 @@ function App() {
         variant="dark"
       >
         <Container fluid>
-          <Navbar.Brand onClick={() => navigate("/home")}>
+          <Navbar.Brand onClick={() => navigate("/home")} className={styles.navbarHeader}>
             Recepty z roztrhlého pytle
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
@@ -33,10 +33,10 @@ function App() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link onClick={() => navigate('/recipeList')}>
+                <Nav.Link onClick={() => navigate('/recipeList')} className={styles.navbarLink}>
                   Recepty
                 </Nav.Link>
-                <Nav.Link onClick={() => navigate('/ingredientList')}>
+                <Nav.Link onClick={() => navigate('/ingredientList')} className={styles.navbarLink}>
                   Ingredience
                 </Nav.Link>
               </Nav>
