@@ -1,76 +1,53 @@
+import React from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+
 import "./App.css";
-import { useState, useEffect } from "react";
-import recipeInfo from "./components/RecipeInfo";
-import RecipeList from "./components/RecipeList";
-import mainFooter from "./components/RecipeFooter";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from "./css/recipeInfo.module.css";
-import Icon from "@mdi/react";
-import { mdiLoading } from "@mdi/js";
-import { STATUS } from "./components/constants/RequestStates"; // Import konstant stavu
+import Navbar from 'react-bootstrap/Navbar'; // Importujte Navbar z knihovny react-bootstrap
+import Container from 'react-bootstrap/Container'; // Importujte Container z knihovny react-bootstrap
+import Offcanvas from 'react-bootstrap/Offcanvas'; // Importujte Offcanvas z knihovny react-bootstrap
+import Nav from 'react-bootstrap/Nav'; // Importujte Nav z knihovny react-bootstrap
 
 function App() {
-  const [recipeListLoadCall, setRecipeListLoadCall] = useState({ // Výchozí stav nastaven na pending 
-    state: STATUS.PENDING, 
-  });
+  let navigate = useNavigate();
 
-  const [ingredienceListLoadCall, setingredienceListLoadCall] = useState({
-    state: STATUS.PENDING, 
-  });
+  return (
+    <div className="App">
+      <Navbar
+        fixed="top"
+        expand={"sm"}
+        className="mb-3"
+        bg="dark"
+        variant="dark"
+      >
+        <Container fluid>
+          <Navbar.Brand onClick={() => navigate("/")}>
+            Recepty z roztrhlého pytle
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
+          <Navbar.Offcanvas id={`offcanvasNavbar-expand-sm`}>
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-sm`} onClick={() => navigate('/')}>
+                Recepty z roztrhlého pytle
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav>
+                <Nav.Link onClick={() => navigate('/recipeList')}>
+                  Recepty
+                </Nav.Link>
+                <Nav.Link onClick={() => navigate('/ingredientList')}>
+                  Ingredience
+                </Nav.Link>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
 
-  useEffect(() => { // Provede asynchronní požadavek na server a aktualizuje stav recipeListLoadCall
-    fetch(`http://localhost:3000/recipe/list`, { // Získám seznam receptů z API recipe/list
-      method: "GET",
-    }).then(async (response) => { // Tato metoda obsahuje zpracování odpovědi ze serveru
-      const responseJson = await response.json(); // Transformace odpovědi na response.json
-      if (response.status >= 400) { // Potom podle kódu se nastaví stav
-        setRecipeListLoadCall({ state: STATUS.ERROR, error: responseJson }); 
-      } else {
-        setRecipeListLoadCall({ state: STATUS.SUCCESS, data: responseJson }); 
-      }
-    });
-  }, []); // prázdné pole podmínek znamená, že kód se spustí pouze jednou
-
-  useEffect(() => {
-    fetch(`http://localhost:3000/ingredient/list`, { 
-      method: "GET",
-    }).then(async (response) => {
-      const responseJson = await response.json();
-      if (response.status >= 400) {
-        setingredienceListLoadCall({ state: STATUS.ERROR, error: responseJson }); 
-      } else {
-        setingredienceListLoadCall({ state: STATUS.SUCCESS, data: responseJson }); 
-      }
-    });
-  }, []); 
-
-  function getChild() { // Na zálkadě stavu recipeListLoadCall a ingredienceListLoadCall vrátí obsah -> recepty, error nebo panding
-    if (recipeListLoadCall.state === STATUS.SUCCESS && ingredienceListLoadCall.state === STATUS.SUCCESS) { 
-      return (
-        <>
-          {recipeInfo()}
-          <RecipeList recipeList={recipeListLoadCall.data} ingredientList = {ingredienceListLoadCall.data}/>
-          {mainFooter()}
-        </>
-      );
-    } else if (recipeListLoadCall.state === STATUS.ERROR || ingredienceListLoadCall.state === STATUS.ERROR) { 
-      return (
-        <div className={styles.error}>
-          <div>Nepodařilo se načíst recepty nebo ingredience</div>
-          <br />
-          <pre>{JSON.stringify(recipeListLoadCall.error, null, 2)}</pre>
-        </div>
-      );
-    } else {
-      return (
-        <div className={styles.loading}>
-          <Icon size={2} path={mdiLoading} spin={true} />
-        </div>
-      );
-    }
-  }
-
-  return <div className="App">{getChild()}</div>;
+      <Outlet />
+    </div>
+  );
 }
 
 export default App;
