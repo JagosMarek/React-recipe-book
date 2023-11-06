@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form"; // Import komponenty formulář z boots
 
 import styles from "../css/recipeInfo.module.css"; // Import komponenty CSS styl
 import Icon from "@mdi/react"; // Import ikon pro table a grid
-import { mdiTable, mdiViewGridOutline, mdiMagnify, mdiPlus } from "@mdi/js"; // ikona s lupou pro tlačítko vyhledávání + ikony grid a table
+import { mdiTable, mdiViewGridOutline, mdiMagnify} from "@mdi/js"; // ikona s lupou pro tlačítko vyhledávání + ikony grid a table
 
 import { RECIPES_VIEW } from "./constants/RecipesView"; // Import konstanty
 import { CARD_SIZE } from "./constants/CardSize"; // Import konstanty
@@ -77,14 +77,13 @@ function RecipeList(props) {
                 <Icon className={styles.icon} size={1} path={mdiMagnify} />
               </Button>
               <Button
-                style={{ float: "right" }}
-                variant="secondary"
-                className="btn btn-success btn-sm"
-                onClick={handleAddRecipeShow}
-              >
-              <Icon path={mdiPlus} size={1} />
-                Přidat známku
-              </Button>
+                  className={styles.plusIcon}
+                  style={{ float: "right" }}
+                  variant="secondary"
+                  onClick={handleAddRecipeShow}
+                >
+                  Přidat recept
+                </Button>
               </div>
               <div className={`${styles.divForm} d-none d-md-block`}>
               <Button

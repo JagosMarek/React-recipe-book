@@ -37,6 +37,16 @@
   background-color: #bd9d3d;
 }
 
+.plusIcon {
+  background-color: #e2e2e9;
+  color: #198754;
+  border: 1px solid #198754;
+}
+
+.plusIcon:hover {
+  background-color: #198754;
+}
+
 .listOfRecipesButton:hover {
   background-color: white !important;
   color: #bd9d3d !important;
@@ -85,6 +95,18 @@
 @media (max-width: 1150px) {
   .listOfRecipesHeader {
     font-size: 1.5rem !important;
+  }
+}
+
+@media (max-width: 1070px) {
+  .listOfRecipesHeader {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .listOfRecipesHeader {
+    font-size: 1.4rem !important;
   }
 }
 
