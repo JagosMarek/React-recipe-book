@@ -1,0 +1,8 @@
+.homeBag {
+    margin-top: 50px;
+    width: 100vh;
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}

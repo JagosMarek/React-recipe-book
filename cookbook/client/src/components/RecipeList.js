@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from "react"; // Import Reactu abych ho mohl používat v komponentě
 import RecipeGridList from "./RecipeGridList"; // Import Grid pro vykreslování seznamu jako karty
 import RecipeTableList from "./RecipeTableList"; // Import Table pro vykreslování seznamu jako tabulky
-import { useMediaQuery } from 'react-responsive'; // Import funkce z knihovny react-esponsive pro zjištění velikosti obrazovky
+import { useMediaQuery } from "react-responsive"; // Import funkce z knihovny react-esponsive pro zjištění velikosti obrazovky
+import RecipeForm from "./RecipeForm";
 
 import Navbar from "react-bootstrap/Navbar"; // Import komponenty Navbar z bootstrap -> ten slouží pro vkládání navigačních prvků na stránku
 import Button from "react-bootstrap/Button"; // Import komponenty Button z bootstrap
@@ -9,7 +10,7 @@ import Form from "react-bootstrap/Form"; // Import komponenty formulář z boots
 
 import styles from "../css/recipeInfo.module.css"; // Import komponenty CSS styl
 import Icon from "@mdi/react"; // Import ikon pro table a grid
-import { mdiTable, mdiViewGridOutline, mdiMagnify } from "@mdi/js"; // ikona s lupou pro tlačítko vyhledávání + ikony grid a table
+import { mdiTable, mdiViewGridOutline, mdiMagnify, mdiPlus } from "@mdi/js"; // ikona s lupou pro tlačítko vyhledávání + ikony grid a table
 
 import { RECIPES_VIEW } from "./constants/RecipesView"; // Import konstanty
 import { CARD_SIZE } from "./constants/CardSize"; // Import konstanty
@@ -22,6 +23,8 @@ function RecipeList(props) {
   const [cardSize, setCardSize] = useState(CARD_SIZE.SMALL); // výchozí hodnota je small
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' }); // proměnná bude true pokud je velikost obrazovky 768px a nižší.
   const isGrid = isTabletOrMobile ? true : viewType === RECIPES_VIEW.GRID; // pokud je isTableOrMobile true tak isGrid je taky true a zobrazí se mřížka
+  const [addRecipeShow, setAddRecipeShow] = useState(false);
+  const handleAddRecipeShow = () => setAddRecipeShow(true);
 
   const filteredRecipeList = useMemo(() => { // Vytvoří nový seznam receptů pomocí useMemo funkce. Výsledek je uložen do proměnné.
     return props.recipeList.filter((item) => {
@@ -73,6 +76,15 @@ function RecipeList(props) {
               >
                 <Icon className={styles.icon} size={1} path={mdiMagnify} />
               </Button>
+              <Button
+                style={{ float: "right" }}
+                variant="secondary"
+                className="btn btn-success btn-sm"
+                onClick={handleAddRecipeShow}
+              >
+              <Icon path={mdiPlus} size={1} />
+                Přidat známku
+              </Button>
               </div>
               <div className={`${styles.divForm} d-none d-md-block`}>
               <Button
@@ -110,6 +122,12 @@ function RecipeList(props) {
       ) : (
         <RecipeTableList recipeList={filteredRecipeList} />
       )}
+      {addRecipeShow &&
+                <RecipeForm
+                    setAddRecipeShow={setAddRecipeShow}
+                    ingredientList={props.ingredientList}
+                />
+            }
     </div>
   );
 }
