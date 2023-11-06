@@ -1,0 +1,27 @@
+/****************************** IngredientTableList CSS Component ******************************/
+
+.tableDes {
+    font-size: 1.6rem;
+    color: #bd9d3d !important;
+}
+
+.ingredient {
+    font-size: 1.2rem;
+    color: #302E4D !important;
+}
+
+.ingredient:hover {
+    background-color: #D3D3D3 !important;
+}
+
+.table {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.icon {
+    background-color: white;
+}
+
+.icon:hover {
+    background-color: #D3D3D3 !important;
+}

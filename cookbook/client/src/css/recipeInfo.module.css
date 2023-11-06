@@ -4,6 +4,8 @@
     text-align: center;
     color: #bd9d3d;
     font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .headerImg {
@@ -53,7 +55,6 @@
 /****************************** loading and error message button CSS Component ******************************/
 
 .loading {
-    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -107,5 +108,9 @@
 
   .divForm {
     margin-top: 10px;
+  }
+
+  .recipeHeader {  
+    margin-bottom: 8px;
   }
 }

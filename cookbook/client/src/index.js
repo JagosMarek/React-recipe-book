@@ -5,6 +5,8 @@ import './index.css';
 import App from './App';
 import Home from './routes/Home';
 import RecipeList from './routes/RecipeList';
+import IngredientList from './routes/IngredientList';
+import RecipeDetail from './routes/RecipeDetail';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,6 +17,8 @@ root.render(
         <Route path='/' element={<App />}>
           <Route path='home' element={<Home />} />
           <Route path='recipeList' element={<RecipeList />} />
+          <Route path='ingredientList' element={<IngredientList />} />
+          <Route path='recipeDetail' element={<RecipeDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import "./App.css";
+import styles from "./css/navbar.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar'; // Importujte Navbar z knihovny react-bootstrap
 import Container from 'react-bootstrap/Container'; // Importujte Container z knihovny react-bootstrap
@@ -13,15 +14,14 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar
+      <Navbar 
+        className={` ${styles.navbar} mb-3`}
         fixed="top"
         expand={"sm"}
-        className="mb-3"
-        bg="dark"
         variant="dark"
       >
         <Container fluid>
-          <Navbar.Brand onClick={() => navigate("/")}>
+          <Navbar.Brand onClick={() => navigate("/home")}>
             Recepty z roztrhlého pytle
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
@@ -32,7 +32,7 @@ function App() {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav>
+              <Nav className="justify-content-end flex-grow-1 pe-3">
                 <Nav.Link onClick={() => navigate('/recipeList')}>
                   Recepty
                 </Nav.Link>

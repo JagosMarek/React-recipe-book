@@ -1,6 +1,6 @@
 function Home() {
-    return <div>TODO Home</div>;
-    
-  }
+  return <div>TODO Home</div>;
   
-  export default Home;
+}
+
+export default Home;
