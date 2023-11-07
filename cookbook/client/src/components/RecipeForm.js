@@ -66,7 +66,11 @@ function RecipeForm(props) {
 
   return (
     <>
-      <Modal show={true} onHide={handleClose} className={styles.modal}>
+      <Modal 
+      show={true} 
+      onHide={handleClose} 
+      className={styles.modal}
+      >
         <Modal.Header closeButton>
           <Modal.Title>{"Přidat recept"}</Modal.Title>
         </Modal.Header>
@@ -81,7 +85,7 @@ function RecipeForm(props) {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>{"Popis"}</Form.Label>
+            <Form.Label>{"Postup"}</Form.Label>
             <ReactQuill
               theme="snow"
               value={formData.description}
