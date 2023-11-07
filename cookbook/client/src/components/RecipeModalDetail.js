@@ -15,7 +15,7 @@ function RecipeModalDetail(props) {
         <div className={styles.modalImg}>
         <img src={recipe.imgUri} alt={recipe.name} />
         </div>
-        <p>{recipe.description}</p>
+        <p className={styles.modalDes}>{recipe.description}</p>
         <strong>Ingredience:</strong>
         <ul>
           {recipe.ingredients.map((ingredient) => (

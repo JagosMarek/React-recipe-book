@@ -8,3 +8,7 @@
     width: 100%;
     border-radius: 5px;
 }
+
+.modalDes {
+    text-align: justify;
+}
