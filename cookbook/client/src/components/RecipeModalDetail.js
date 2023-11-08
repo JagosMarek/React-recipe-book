@@ -15,6 +15,7 @@ function RecipeModalDetail(props) {
         <div className={styles.modalImg}>
         <img src={recipe.imgUri} alt={recipe.name} />
         </div>
+        <strong>Postup:</strong>
         <p className={styles.modalDes}>{recipe.description}</p>
         <strong>Ingredience:</strong>
         <ul>

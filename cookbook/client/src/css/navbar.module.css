@@ -11,25 +11,25 @@
 }
 
 .navbarHeader {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
     color: #bd9d3d !important;
 }
 
 .navbarLink {
-    font-size: 1rem;
+    font-size: 1rem !important;
     color: #bd9d3d !important;
-    transition: background 0.5s;
-    background-image: linear-gradient(90deg, transparent 50%, #e2e2e9 50%);
-    background-size: 200% 100%;
-    background-position: 100%;
-    border-radius: 10px;
-    margin-left: 20px;
-    border: 1px solid #bd9d3d;
+    transition: background 0.5s !important;
+    background-image: linear-gradient(90deg, transparent 50%, #e2e2e9 50%) !important;
+    background-size: 200% 100% !important;
+    background-position: 100% !important;
+    border-radius: 10px !important;
+    margin-left: 20px !important;
+    border: 1px solid #bd9d3d !important;
 }
   
 .navbarLink:hover {
-    background-position: 0;
-    background-color: #bd9d3d;
+    background-position: 0 !important;
+    background-color: #bd9d3d !important;
     color: white !important;
 }
 
