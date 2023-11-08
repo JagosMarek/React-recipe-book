@@ -528,5 +528,23 @@
       }
     ],
     "id": "e6a2450d6d6cd747"
+  },
+  {
+    "name": "Test",
+    "description": "Test",
+    "imgUri": "test",
+    "ingredients": [
+      {
+        "id": "53dae6e5a0076b15",
+        "amount": 1,
+        "unit": "ks"
+      },
+      {
+        "id": "34109b1b210e32ed",
+        "amount": 0.5,
+        "unit": "kg"
+      }
+    ],
+    "id": "d56df6bcfe3d6455"
   }
 ]
