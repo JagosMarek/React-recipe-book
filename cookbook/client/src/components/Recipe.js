@@ -4,12 +4,16 @@ import Button from "react-bootstrap/Button";
 import styles from "../css/recipe.module.css";
 import { CARD_SIZE } from "./constants/CardSize";
 import RecipeModalDetail from "./RecipeModalDetail";
+import RecipeForm from './RecipeForm';
+
 
 function Recipe(props) {
   const [isModalShown, setShow] = useState(false);
+  const [isEditModalShown, setEditModalShow] = useState(false);
 
   const handleShowModal = () => setShow(true);
   const handleCloseModal = () => setShow(false);
+  const handleShowEditModal = () => setEditModalShow(true);
 
   return (
     <>
@@ -44,6 +48,9 @@ function Recipe(props) {
         <Button className={styles.recipeButton} variant="primary" onClick={handleShowModal}>
           Celý recept
         </Button>
+        <Button className={styles.editRecipeButton} variant="secondary" onClick={handleShowEditModal}>
+          Upravit recept
+        </Button>
       </Card>
 
       <RecipeModalDetail
@@ -52,6 +59,15 @@ function Recipe(props) {
         recipe={props.recipe}
         ingredientList={props.ingredientList}
       />
+
+      {isEditModalShown && (
+          <RecipeForm
+            setAddRecipeShow={setEditModalShow}
+            recipe={props.recipe}
+            isEdit={true}
+            ingredientList={props.ingredientList}
+          />
+        )}
     </>
   );
 }

@@ -1,23 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import styles from "../css/modal.module.css";
 
 function RecipeForm(props) {
   // State pro uchování dat formuláře.
   const [formData, setFormData] = useState({
+    id: "", 
     name: "",
     description: "",
     ingredients: [{ id: "", amount: "", unit: "" }],
     imgUri: "",
   });
-
+  
   // State pro validaci formuláře.
   const [validated, setValidated] = useState(false);
   
   // State pro zobrazení chyby při duplicitě ingrediencí.
   const [duplicateIngredientError, setDuplicateIngredientError] = useState(false);
   
-  const unitOptions = ['ks', 'l', 'ml', 'g', 'kg', 'šálek', 'lžíce', 'lžička', 'špetka', 'kávová lžička', 'plátek', 'snítka', 'kávová lžička', 'párek', 'kousek'];
+  const unitOptions = ['ks', 'l', 'ml', 'g', 'kg', 'šálek', 'lžíce', 'lžička', 'špetka', 'kávová lžička', 'plátek', 'snítka', 'kousek'];
 
   // Funkce pro aktualizaci hodnot ve state formData.
   const setField = (name, val) => {
@@ -28,7 +29,30 @@ function RecipeForm(props) {
     });
   };
 
-  // Funkce pro odeslání formuláře.
+  useEffect(() => {
+    // Tento efekt se spustí pouze pokud `isEdit` je `true` a `recipe` objekt existuje
+    // Je to určeno pro inicializaci formuláře s existujícími daty receptu při editaci.
+    if (props.isEdit && props.recipe) {
+      setFormData({
+        // Pokud některá z těchto props není nahradím prázdným řetězcem
+        name: props.recipe.name,
+        description: props.recipe.description,
+        ingredients: props.recipe.ingredients,
+        imgUri: props.recipe.imgUri,
+      });
+    } else if (!props.isEdit) {
+      // Pokud není režim úprav, resetuji formulář na výchozí hodnoty -> když chci vytvořit novej recept
+      setFormData({
+        name: "",
+        description: "",
+        ingredients: [{ id: "", amount: "", unit: "" }],
+        imgUri: "",
+      });
+    }
+  }, [props.isEdit, props.recipe]); // Tento efekt se spustí pouze když se změní `props.isEdit` nebo `props.recipe`
+  
+
+    // Funkce pro odeslání formuláře.
   const handleSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
@@ -40,46 +64,50 @@ function RecipeForm(props) {
       return;
     }
 
-    // Příprava dat pro odeslání.
-    const formDataToSend = {
-      name: formData.name,
-      description: formData.description,
-      imgUri: formData.imgUri,
-      ingredients: formData.ingredients.map((ingredient) => ({
-        id: ingredient.id,
-        amount: parseFloat(ingredient.amount), 
-        unit: ingredient.unit,
-      })),
-    };
-
     // Kontrola validace formuláře.
-    if (!form.checkValidity()) {
-      setValidated(true);
-      return;
-    }
+    if (form.checkValidity()) {
+      const endpoint = props.isEdit ? 'http://localhost:3000/recipe/update' : 'http://localhost:3000/recipe/create';
+      const method = 'POST';
+    
+      // Příprava dat pro odeslání.
+      const formDataToSend = {
+        name: formData.name,
+        description: formData.description,
+        imgUri: formData.imgUri,
+        ingredients: formData.ingredients.map((ingredient) => ({
+          id: ingredient.id,
+          amount: parseFloat(ingredient.amount), 
+          unit: ingredient.unit,
+        })),
+        ...(props.isEdit && { id: props.recipe.id }) // Přidám id jenom pokud je to editace
+      };
 
-    // Asynchronní odeslání dat na server.
-    try {
-      const response = await fetch('http://localhost:3000/recipe/create', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formDataToSend),
-      });
+      // Asynchronní odeslání dat na server.
+      try {
+        const response = await fetch(endpoint, {
+          method: method,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formDataToSend),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log(result);
+        handleClose(); // Zavření modálního okna po úspěšném odeslání.
+      } catch (error) {
+        console.error('Chyba při odesílání formuláře:', error);
       }
-
-      const result = await response.json();
-      console.log(result);
-      handleClose(); // Zavření modálního okna po úspěšném odeslání.
-    } catch (error) {
-      console.error('Chyba při odesílání formuláře:', error);
+    } else {
+      // Pokud formulář není validní, nastavím validated na true a zobrazí se chybové hlášky
+      setValidated(true);
     }
   };
-
+  
   // Funkce pro zavření modálního okna.
   const handleClose = () => props.setAddRecipeShow(false);
 
@@ -106,28 +134,26 @@ function RecipeForm(props) {
   // Funkce pro přidání nové ingredience do formuláře.
   const handleAddIngredient = () => {
     setDuplicateIngredientError(false);
-    setFormData((prevData) => {
-      const newData = { ...prevData };
-      newData.ingredients = [...newData.ingredients, { id: "", amount: "", unit: "" }];
-      return newData;
-    });
+    setFormData(prevData => ({
+      ...prevData,
+      ingredients: prevData.ingredients.concat({ id: "", amount: "", unit: "" })
+    }));
   };
-
-  // Funkce pro odstranění ingredience z formuláře.
-  const handleRemoveIngredient = (index) => {
-    setFormData((prevData) => {
-      const newData = { ...prevData };
-      newData.ingredients = newData.ingredients.filter((_, i) => i !== index);
-      return newData;
-    });
+  
+  // Funkce slouží k odstranění ingredience z pole ingrediencí 
+  const handleRemoveIngredient = index => {
+    setFormData(prevData => ({
+      ...prevData,
+      ingredients: prevData.ingredients.filter((_, i) => i !== index)
+    }));
   };
 
   return (
     <>
-      <Modal show={true} onHide={handleClose} className={styles.modal}>
+      <Modal show={true} onHide={handleClose} size="lg" className={styles.modal}>
         <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e)}>
-          <Modal.Header closeButton>
-            <Modal.Title>{"Přidat recept"}</Modal.Title>
+        <Modal.Header closeButton>
+          <Modal.Title>{props.isEdit ? "Upravit recept" : "Přidat recept"}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form.Group className="mb-3">
@@ -179,10 +205,11 @@ function RecipeForm(props) {
                     <option value="" disabled>
                       {"Vyberte ingredienci"}
                     </option>
-                    {[...props.ingredientList] // Vytvořím kopii pole, abych mohl bezpečně seřadit
-                      .sort((a, b) => a.name.localeCompare(b.name)) // Seřadím abecedně
-                      .map((ing, i) => ( // mapuji do <option>
-                        <option key={i} value={ing.id}>
+                    {Array.isArray(props.ingredientList) && props.ingredientList
+                      .slice() // vytvořím kopii pole
+                      .sort((a, b) => a.name.localeCompare(b.name)) // Seřadím kopii abecedně
+                      .map((ing) => (
+                        <option key={ing.id} value={ing.id}>
                           {ing.name}
                         </option>
                       ))
@@ -232,7 +259,7 @@ function RecipeForm(props) {
                 {"Zavřít"}
               </Button>
               <Button variant="primary" type="submit">
-                {"Přidat"}
+                {props.isEdit ? "Uložit" : "Přidat"}
               </Button>
             </div>
           </Modal.Footer>

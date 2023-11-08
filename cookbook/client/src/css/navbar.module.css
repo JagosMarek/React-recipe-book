@@ -35,6 +35,6 @@
 
 @media (max-width: 750px) {
     .navbarHeader {
-        font-size: 1.1rem;
+        font-size: 1.1rem !important;
     }
 }

@@ -530,9 +530,9 @@
     "id": "e6a2450d6d6cd747"
   },
   {
-    "name": "Test",
-    "description": "Test",
-    "imgUri": "test",
+    "name": "Test uprava",
+    "description": "Uprava",
+    "imgUri": "https://i.insider.com/5e32f61c24306a1e87512226?width=1200&format=jpeg",
     "ingredients": [
       {
         "id": "53dae6e5a0076b15",
@@ -540,11 +540,16 @@
         "unit": "ks"
       },
       {
-        "id": "34109b1b210e32ed",
-        "amount": 0.5,
-        "unit": "kg"
+        "id": "9f02cb91fe08ee88",
+        "amount": 1,
+        "unit": "ml"
+      },
+      {
+        "id": "f6d6a4104a5194d9",
+        "amount": 2,
+        "unit": "g"
       }
     ],
-    "id": "d56df6bcfe3d6455"
+    "id": "14ea129a58ffd618"
   }
 ]

@@ -39,6 +39,17 @@
     transition: 0.3s;
 }
 
+.editRecipeButton {
+    background-color: #198754;
+    border-color: #198754;
+    color: white;
+}
+
+.editRecipeButton:hover {
+    background-color: white;
+    color: #198754;
+  }
+
 .recipeButton:hover {
     background-color: white !important;
     color: #bd9d3d !important;
