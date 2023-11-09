@@ -3,15 +3,17 @@ import Button from "react-bootstrap/Button";
 import Icon from "@mdi/react";
 import { mdiTrashCanOutline } from "@mdi/js";
 import styles from "../css/recipe.module.css";
+import Confirmation from "./Confirmation";
 
-// Komponenta RecipeDelete zajišťuje odstranění receptu
-// Poskytuje tlačítko, které spustí odstranění receptu a zpracuje odpověď serveru
+// Komponenta RecipeDelete slouží k zobrazení tlačítka pro smazání receptu a ošetření celého procesu,
+// včetně zobrazení potvrzovacího dialogu a komunikace s API pro odstranění receptu.
 export default function RecipeDelete({ recipeId, onDelete, onError }) {
-  // State pro sledování stavu požadavku na smazání
   const [deleteCall, setDeleteCall] = useState({ state: 'inactive' });
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   // Funkce pro manipulaci s požadavkem na smazání receptu
   const handleDelete = async () => {
+    setShowConfirmation(false);
     // Pokud je již požadavek ve stavu čekání, nic nedělá
     if (deleteCall.state === 'pending') return;
   
@@ -54,10 +56,36 @@ export default function RecipeDelete({ recipeId, onDelete, onError }) {
     }
   };
 
+  // Funkce pro zobrazení potvrzovacího dialogu
+  const handleShowConfirmation = () => {
+    setShowConfirmation(true);
+  };
+
+  // Funkce pro skrytí potvrzovacího dialogu bez smazání
+  const handleCancelConfirmation = () => {
+    setShowConfirmation(false);
+  };
+
   // Vrátí tlačítko, které reprezentuje akci smazání s aktuálním stavem požadavku
   return (
-    <Button className={styles.deleteRecipeButton} variant="danger" onClick={handleDelete} disabled={deleteCall.state === 'pending'}>
-      {deleteCall.state === 'pending' ? 'Mažu...' : <Icon className={styles.deleteIcon} path={mdiTrashCanOutline} size={1} />}
-    </Button>
+    <>
+      <Button
+        className={styles.deleteRecipeButton}
+        variant="danger"
+        onClick={handleShowConfirmation}
+        disabled={deleteCall.state === 'pending'}
+      >
+        {deleteCall.state === 'pending' ? 'Mažu...' : <Icon className={styles.deleteIcon} path={mdiTrashCanOutline} size={1} />}
+      </Button>
+
+      <Confirmation
+        show={showConfirmation}
+        onHide={handleCancelConfirmation}
+        title="Potvrzení smazání"
+        message="Opravdu chcete smazat tento recept?"
+        confirmText="Ano, smazat"
+        onConfirm={handleDelete}
+      />
+    </>
   );
 }
