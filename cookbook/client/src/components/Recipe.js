@@ -5,21 +5,38 @@ import styles from "../css/recipe.module.css";
 import { CARD_SIZE } from "./constants/CardSize";
 import RecipeModalDetail from "./RecipeModalDetail";
 import RecipeForm from './RecipeForm';
+import RecipeDelete from './RecipeDelete';
+import Icon from '@mdi/react';
+import { mdiLeadPencil, mdiMagnify } from '@mdi/js';
 
-
+// Hlavní komponenta Recipe pro zobrazení jednotlivých receptů
+// Umožňuje zobrazit detail receptu, upravit recept nebo recept smazat
 function Recipe(props) {
+  // State proměnné pro řízení viditelnosti modálních oken
   const [isModalShown, setShow] = useState(false);
   const [isEditModalShown, setEditModalShow] = useState(false);
 
+  // Funkce pro otevření modálního okna s detailem receptu
   const handleShowModal = () => setShow(true);
+
+  // Funkce pro zavření modálního okna s detailem receptu
   const handleCloseModal = () => setShow(false);
+
+  // Funkce pro otevření modálního okna pro editaci receptu
   const handleShowEditModal = () => setEditModalShow(true);
 
+  // Funkce pro smazání receptu, volá callback předaný z nadřazené komponenty
+  const handleDeleteRecipe = (recipeId) => {
+    props.onDelete(recipeId);
+  };
+
+  // Renderování komponenty
   return (
     <>
       <Card className={styles.recipe}>
         <Card.Img variant="top" src={props.recipe.imgUri} alt={props.recipe.name} />
         <Card.Body
+          // Přizpůsobení velikosti těla karty podle konstanty CARD_SIZE
           className={styles.recipeBody + (props.cardSize === CARD_SIZE.LARGE ? " " + styles.recipeBodyLarge : " " + styles.recipeBodySmall)}
         >
           <Card.Title className={styles.recipeTitle}>{props.recipe.name}</Card.Title>
@@ -45,12 +62,15 @@ function Recipe(props) {
             </ul>
           </Card.Text>
         </Card.Body>
-        <Button className={styles.recipeButton} variant="primary" onClick={handleShowModal}>
-          Celý recept
-        </Button>
-        <Button className={styles.editRecipeButton} variant="secondary" onClick={handleShowEditModal}>
-          Upravit recept
-        </Button>
+        <div className={styles.buttons}>
+            <Button className={styles.viewRecipeButton} variant="primary" onClick={handleShowModal}>
+              <Icon className={styles.viewIcon} path={mdiMagnify} size={1} />
+            </Button>
+            <Button className={`${styles.editRecipeButton} ${styles.squareButton}`} variant="secondary" onClick={handleShowEditModal}>
+              <Icon className={styles.editIcon} path={mdiLeadPencil} size={1} />
+            </Button>
+              <RecipeDelete recipeId={props.recipe.id} onDelete={handleDeleteRecipe} />
+        </div>
       </Card>
 
       <RecipeModalDetail
@@ -72,4 +92,5 @@ function Recipe(props) {
   );
 }
 
+// Export komponenty Recipe pro použití v jiných částech aplikace
 export default Recipe;

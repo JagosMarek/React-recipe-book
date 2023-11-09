@@ -1,68 +1,5 @@
 [
   {
-    "name": "Salát z naklíčené čočky",
-    "description": "Mrkev, okurku a papriku nakrájejte na malé kostičky a dejte do větší mísy spolu s naklíčenou čočkou. Cibuli nakrájejte najemno a přidejte k zelenině. Přisypte nasekanou petrželku. V misce nebo hrníčku důkladně promíchejte lák z okurek, olivový olej a med. Zálivku nalijte do mísy a důkladně promíchejte. Na závěr dochuťte solí a pepřem.",
-    "imgUri": "https://zachranjidlo.cz/wp-content/uploads/dsc02309-1-e1652694711486-1024x433-1200x500-c-default.jpg",
-    "ingredients": [
-      {
-        "id": "c6ea4fb4d330d32b",
-        "amount": 200,
-        "unit": "g"
-      },
-      {
-        "id": "01ed1245cdfd005a",
-        "amount": 1,
-        "unit": "ks"
-      },
-      {
-        "id": "95ff7d609062d4db",
-        "amount": 0.5,
-        "unit": "ks"
-      },
-      {
-        "id": "73fd3db102b7803d",
-        "amount": 0.5,
-        "unit": "ks"
-      },
-      {
-        "id": "9416b19e1bd2cd11",
-        "amount": 1,
-        "unit": "ks"
-      },
-      {
-        "id": "426371a4bbc275f1",
-        "amount": 1,
-        "unit": "hrst"
-      },
-      {
-        "id": "e0e1a7f5ccef3dff",
-        "amount": 3,
-        "unit": "lžíce"
-      },
-      {
-        "id": "d8e6bbd4d6038494",
-        "amount": 2,
-        "unit": "lžíce"
-      },
-      {
-        "id": "defe5185b23ca985",
-        "amount": 1,
-        "unit": "lžíce"
-      },
-      {
-        "id": "3f702872fb8e99f8",
-        "amount": 1,
-        "unit": "špetka"
-      },
-      {
-        "id": "cd99517791018390",
-        "amount": 1,
-        "unit": "špetka"
-      }
-    ],
-    "id": "b6c21cf8807dd356"
-  },
-  {
     "name": "Ovesné placičky",
     "description": "Cibuli oloupejte a nastrouhejte nahrubo. Mrkev důkladně umyjte a nastrouhejte najemno spolu s česnekem. V míse smíchejte vločky, cibuli, mrkev, česnek a koření. Přidejte strouhanku a důkladně promíchejte, ideálně rukou tak, aby vznikla jednotná směs. Pokud je směs příliš suchá, přidejte trošku vody, pokud je příliš mokrá, přidejte trošku strouhanky. Na pánvi rozpalte olej, ze směsi vytvarujte malé placičky a smažte z obou stran dozlatova.",
     "imgUri": "https://zachranjidlo.cz/wp-content/uploads/dsc-0516-1-1024x480-1200x500-c-default.jpg",
@@ -528,28 +465,5 @@
       }
     ],
     "id": "e6a2450d6d6cd747"
-  },
-  {
-    "name": "Test uprava",
-    "description": "Uprava",
-    "imgUri": "https://i.insider.com/5e32f61c24306a1e87512226?width=1200&format=jpeg",
-    "ingredients": [
-      {
-        "id": "53dae6e5a0076b15",
-        "amount": 1,
-        "unit": "ks"
-      },
-      {
-        "id": "9f02cb91fe08ee88",
-        "amount": 1,
-        "unit": "ml"
-      },
-      {
-        "id": "f6d6a4104a5194d9",
-        "amount": 2,
-        "unit": "g"
-      }
-    ],
-    "id": "14ea129a58ffd618"
   }
 ]
