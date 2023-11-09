@@ -43,13 +43,40 @@ function RecipeLoadList() {
           }
         });
       }, []); 
+
+      // Tato komponenta spravuje stavy načítání, přidávání a mazání receptů.
+      // handleRecipeAdded aktualizuje seznam receptů po přidání nebo úpravě receptu.
+      // handleRecipeDeleted odebere recept ze seznamu po jeho smazání.
+      const handleRecipeAdded = (recipe) => { 
+        if (recipeListLoadCall.state === STATUS.SUCCESS) { 
+          let recipeList = [...recipeListLoadCall.data]; 
+          
+          if (recipe.id) { 
+            recipeList = recipeList.filter((g) => g.id !== recipe.id); 
+          }
+          
+          setRecipeListLoadCall({ 
+            state: "success", 
+            data: [...recipeList, recipe] 
+          }); 
+        } 
+      }
+
+      const handleRecipeDeleted = (recipeId) => {
+        if (recipeListLoadCall.state === STATUS.SUCCESS) {
+          setRecipeListLoadCall({
+            state: STATUS.SUCCESS,
+            data: recipeListLoadCall.data.filter((recipe) => recipe.id !== recipeId)
+          });
+        }  
+      }      
     
       function getChild() { // Na zálkadě stavu recipeListLoadCall a ingredienceListLoadCall vrátí obsah -> recepty, error nebo panding
         if (recipeListLoadCall.state === STATUS.SUCCESS && ingredienceListLoadCall.state === STATUS.SUCCESS) { 
           return (
             <>
               {recipeInfo()}
-              <RecipeList recipeList={recipeListLoadCall.data} ingredientList = {ingredienceListLoadCall.data}/>
+              <RecipeList recipeList={recipeListLoadCall.data} ingredientList = {ingredienceListLoadCall.data} handleRecipeAdded={handleRecipeAdded} handleRecipeDeleted={handleRecipeDeleted}/>
               {mainFooter()}
             </>
           );

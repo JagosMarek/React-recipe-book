@@ -25,11 +25,6 @@ function Recipe(props) {
   // Funkce pro otevření modálního okna pro editaci receptu
   const handleShowEditModal = () => setEditModalShow(true);
 
-  // Funkce pro smazání receptu, volá callback předaný z nadřazené komponenty
-  const handleDeleteRecipe = (recipeId) => {
-    props.onDelete(recipeId);
-  };
-
   // Renderování komponenty
   return (
     <>
@@ -69,7 +64,7 @@ function Recipe(props) {
             <Button className={`${styles.editRecipeButton} ${styles.squareButton}`} variant="secondary" onClick={handleShowEditModal}>
               <Icon className={styles.editIcon} path={mdiLeadPencil} size={1} />
             </Button>
-              <RecipeDelete recipeId={props.recipe.id} onDelete={handleDeleteRecipe} />
+              <RecipeDelete recipeId={props.recipe.id} onDelete={props.handleRecipeDeleted} />
         </div>
       </Card>
 
@@ -86,6 +81,7 @@ function Recipe(props) {
             recipe={props.recipe}
             isEdit={true}
             ingredientList={props.ingredientList}
+            onComplete={props.handleRecipeAdded}
           />
         )}
     </>

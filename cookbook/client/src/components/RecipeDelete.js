@@ -73,9 +73,10 @@ export default function RecipeDelete({ recipeId, onDelete, onError }) {
         className={styles.deleteRecipeButton}
         variant="danger"
         onClick={handleShowConfirmation}
-        disabled={deleteCall.state === 'pending'}
+        disabled={deleteCall.state === 'pending'} // Deaktivuje tlačítko, když je požadavek na smazání ve stavu pending
+        // Zobrazuje text Mažu, když probíhá mazání, nebo ikonu, pokud mazání není aktivní
       >
-        {deleteCall.state === 'pending' ? 'Mažu...' : <Icon className={styles.deleteIcon} path={mdiTrashCanOutline} size={1} />}
+        {deleteCall.state === 'pending' ? 'Mažu' : <Icon className={styles.deleteIcon} path={mdiTrashCanOutline} size={1} />} 
       </Button>
 
       <Confirmation

@@ -98,6 +98,7 @@ function RecipeForm(props) {
 
         const result = await response.json();
         console.log(result);
+        props.onComplete(result);
         handleClose(); // Zavření modálního okna po úspěšném odeslání.
       } catch (error) {
         console.error('Chyba při odesílání formuláře:', error);
