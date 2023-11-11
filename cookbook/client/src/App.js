@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import "./App.css";
@@ -8,9 +8,11 @@ import Navbar from 'react-bootstrap/Navbar'; // Importujte Navbar z knihovny rea
 import Container from 'react-bootstrap/Container'; // Importujte Container z knihovny react-bootstrap
 import Offcanvas from 'react-bootstrap/Offcanvas'; // Importujte Offcanvas z knihovny react-bootstrap
 import Nav from 'react-bootstrap/Nav'; // Importujte Nav z knihovny react-bootstrap
+import UserContext from './UserProvider';
 
 function App() {
   let navigate = useNavigate();
+  const { isAuthorized, toggleAuth } = useContext(UserContext);
 
   return (
     <div className="App">
@@ -38,6 +40,9 @@ function App() {
                 </Nav.Link>
                 <Nav.Link onClick={() => navigate('/ingredientList')} className={styles.navbarLink}>
                   Ingredience
+                </Nav.Link>
+                <Nav.Link onClick={toggleAuth} className={styles.navbarLink}>
+                  {isAuthorized ? 'Odhlásit' : 'Přihlásit'}
                 </Nav.Link>
               </Nav>
             </Offcanvas.Body>
