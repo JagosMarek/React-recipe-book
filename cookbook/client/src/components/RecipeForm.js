@@ -34,7 +34,6 @@ function RecipeForm(props) {
     // Je to určeno pro inicializaci formuláře s existujícími daty receptu při editaci.
     if (props.isEdit && props.recipe) {
       setFormData({
-        // Pokud některá z těchto props není nahradím prázdným řetězcem
         name: props.recipe.name,
         description: props.recipe.description,
         ingredients: props.recipe.ingredients,
@@ -125,10 +124,10 @@ function RecipeForm(props) {
     }
   
   // Funkce pro aktualizaci hodnoty konkrétní ingredience v poli ingrediencí.
-  setFormData((prevData) => {
-      const newData = { ...prevData };
-      newData.ingredients[index][field] = value;
-      return newData;
+    setFormData((prevData) => {
+        const newData = { ...prevData };
+        newData.ingredients[index][field] = value;
+        return newData;
     });
   };
 
@@ -197,7 +196,7 @@ function RecipeForm(props) {
             <Form.Group className="mb-3">
               <Form.Label>{"Ingredience"}</Form.Label>
               {formData.ingredients.map((ingredient, index) => (
-                <div key={`ingredient-${index}`} className="d-flex mb-2">
+                <div key={`ingredient-${index}`} className="d-flex mb-2"> 
                   <Form.Select
                     value={ingredient.id}
                     onChange={(e) => handleIngredientChange(index, "id", e.target.value)}
@@ -236,7 +235,7 @@ function RecipeForm(props) {
                       <option key={i} value={unit}>{unit}</option>
                     ))}
                   </Form.Select>
-                  {index > 0 && (
+                  {formData.ingredients.length > 1 && (
                     <Button
                       variant="danger"
                       onClick={() => handleRemoveIngredient(index)}
