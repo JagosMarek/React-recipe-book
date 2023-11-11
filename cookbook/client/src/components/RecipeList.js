@@ -117,9 +117,18 @@ function RecipeList(props) {
         </div>
       </Navbar>
       {isGrid ? ( // klasika pokud je grid true tak vykreslím mřížky jinak table
-        <RecipeGridList recipeList={filteredRecipeList} ingredientList={props.ingredientList} handleRecipeAdded={props.handleRecipeAdded} handleRecipeDeleted={props.handleRecipeDeleted} cardSize={cardSize} />
+        <RecipeGridList 
+          recipeList={filteredRecipeList} 
+          ingredientList={props.ingredientList} 
+          handleRecipeAdded={props.handleRecipeAdded} 
+          handleRecipeDeleted={props.handleRecipeDeleted} 
+          isAuthorized={props.isAuthorized} 
+          cardSize={cardSize} />
       ) : (
-        <RecipeTableList recipeList={filteredRecipeList} handleRecipeAdded={props.handleRecipeAdded} handleRecipeDeleted={props.handleRecipeDeleted} />
+        <RecipeTableList 
+          recipeList={filteredRecipeList} 
+          handleRecipeAdded={props.handleRecipeAdded} 
+          handleRecipeDeleted={props.handleRecipeDeleted} />
       )}
       {addRecipeShow &&
                 <RecipeForm

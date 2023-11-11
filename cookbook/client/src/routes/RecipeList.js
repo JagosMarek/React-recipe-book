@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "../App.css";
 import recipeInfo from "../components/RecipeInfo";
 import RecipeList from "../components/RecipeList";
@@ -8,6 +8,7 @@ import styles from "../css/recipeInfo.module.css";
 import Icon from "@mdi/react";
 import { mdiLoading } from "@mdi/js";
 import { STATUS } from "../components/constants/RequestStates"; // Import konstant stavu
+import UserContext from '../UserProvider';
 
 function RecipeLoadList() {
     const [recipeListLoadCall, setRecipeListLoadCall] = useState({ // Výchozí stav nastaven na pending 
@@ -17,6 +18,8 @@ function RecipeLoadList() {
       const [ingredienceListLoadCall, setingredienceListLoadCall] = useState({
         state: STATUS.PENDING, 
       });
+
+      const { isAuthorized } = useContext(UserContext);
     
       useEffect(() => { // Provede asynchronní požadavek na server a aktualizuje stav recipeListLoadCall
         fetch(`http://localhost:3000/recipe/list`, { // Získám seznam receptů z API recipe/list
@@ -76,7 +79,12 @@ function RecipeLoadList() {
           return (
             <>
               {recipeInfo()}
-              <RecipeList recipeList={recipeListLoadCall.data} ingredientList = {ingredienceListLoadCall.data} handleRecipeAdded={handleRecipeAdded} handleRecipeDeleted={handleRecipeDeleted}/>
+              <RecipeList 
+                recipeList={recipeListLoadCall.data} 
+                ingredientList = {ingredienceListLoadCall.data} 
+                handleRecipeAdded={handleRecipeAdded} 
+                handleRecipeDeleted={handleRecipeDeleted}
+                isAuthorized={isAuthorized}/>
               {mainFooter()}
             </>
           );

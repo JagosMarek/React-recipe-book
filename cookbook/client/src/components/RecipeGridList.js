@@ -20,7 +20,12 @@ function RecipeGridList(props) {
     <div className="row">
       {recipeList.map((recipe) => (
         <div key={recipe.id} className={getColumnSize(cardSize)}>
-          <Recipe recipe={recipe} cardSize={cardSize} ingredientList={ingredientList} handleRecipeAdded={props.handleRecipeAdded} handleRecipeDeleted={props.handleRecipeDeleted} />
+          <Recipe recipe={recipe} 
+            cardSize={cardSize} 
+            ingredientList={ingredientList} 
+            handleRecipeAdded={props.handleRecipeAdded} 
+            handleRecipeDeleted={props.handleRecipeDeleted} 
+            isAuthorized={props.isAuthorized} />
         </div>
       ))}
     </div>

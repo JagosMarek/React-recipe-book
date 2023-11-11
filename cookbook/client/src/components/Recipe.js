@@ -61,10 +61,14 @@ function Recipe(props) {
             <Button className={styles.viewRecipeButton} variant="primary" onClick={handleShowModal}>
               <Icon className={styles.viewIcon} path={mdiMagnify} size={1} />
             </Button>
-            <Button className={`${styles.editRecipeButton} ${styles.squareButton}`} variant="secondary" onClick={handleShowEditModal}>
-              <Icon className={styles.editIcon} path={mdiLeadPencil} size={1} />
-            </Button>
-              <RecipeDelete recipeId={props.recipe.id} onDelete={props.handleRecipeDeleted} />
+            {props.isAuthorized && (
+              <>
+                <Button className={`${styles.editRecipeButton} ${styles.squareButton}`} variant="secondary" onClick={handleShowEditModal}>
+                  <Icon className={styles.editIcon} path={mdiLeadPencil} size={1} />
+                </Button>
+                <RecipeDelete recipeId={props.recipe.id} onDelete={props.handleRecipeDeleted} />
+              </> 
+            )}
         </div>
       </Card>
 
