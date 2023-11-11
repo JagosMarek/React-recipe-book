@@ -11,13 +11,11 @@ Aplikace umožňuje CRUD operace nad recepty.
 - Aplikace je plně responzivní.
 - Všechny vstupy jsou validovány.
 
-## Video 🎥
-
-
-
 ## Screenshots 📷
 
 ![img1](https://github.com/JagosMarek/React-recipe-book/assets/128280984/6d993a72-b869-4a82-9d90-0972b484f4fa)
+
+![img3](https://github.com/JagosMarek/React-recipe-book/assets/128280984/a61f5def-cc2e-40c7-8d28-df5b457e77b1)
 
 <p align="center">
  <img 
